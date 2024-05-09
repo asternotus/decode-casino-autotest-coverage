@@ -23,7 +23,8 @@ const registrationData = {
     city: "Schenectady",
     state: "Illinois",
     address: "Wall Street",
-    phone: "8888888888"
+    phone: "8888888888",
+    initialBalance: "$0.00",
 };
 
 module.exports = { registrationData };

@@ -2,9 +2,9 @@
 
 // Mock data for test user account
 const testAccountData = {
-    name: "Jose Corro",
-    username: "JoseCorro",
-    email: "corro.coco@gmail.com",
+    name: "John Johnson",
+    username: "JohnJohnson",
+    email: "johnjohnson@gmail.com",
     phone: "+18888888888",
     city: "Schenectady",
     address: "Wall Street",

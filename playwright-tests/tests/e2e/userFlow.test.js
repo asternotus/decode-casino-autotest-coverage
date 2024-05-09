@@ -3,6 +3,7 @@ const { test, expect } = require('@playwright/test');
 const { HomePage } = require('../../pageObjects/HomePage');
 const { RegistrationPage } = require('../../pageObjects/RegistrationPage');
 const { LoginHelper } = require('../../utils/loginHelper');
+const { SignInPage } = require('../../pageObjects/SignInPage');
 const { registrationData } = require('../../fixtures/registrationData');
 const { applicationMessages } = require('../../fixtures/applicationMessages');
 const { testAccountData } = require('../../fixtures/testAccountData');
@@ -11,6 +12,7 @@ const config = require('../../config');
 
 test('All user account pages are shown after new user is created', async ({ page }) => {
     const homePage = new HomePage(page, config.baseUrl);
+    const signInPage = new SignInPage(page);
     const registrationPage = new RegistrationPage(page);
     const helper = new LoginHelper(page)
 
@@ -90,9 +92,12 @@ test('All user account pages are shown after new user is created', async ({ page
     await expect(page).toHaveTitle(pageTitles.home);
 
     // Log in
-    await helper.loginToAccount(page);
+    await homePage.clickLoginLink();
+    await signInPage.usernameInput.fill(registrationData.username);
+    await signInPage.passwordInput.fill(registrationData.password);
+    await signInPage.clickLoginButton();
 
     // Check username and initial balance are shown
-    await expect(homePage.profileNameElement).toHaveText(testAccountData.username);
-    await expect(homePage.profileBalanceElement).toHaveText(testAccountData.initialBalance);
+    await expect(homePage.profileNameElement).toHaveText(registrationData.username);
+    await expect(homePage.profileBalanceElement).toHaveText(registrationData.initialBalance);
 });
